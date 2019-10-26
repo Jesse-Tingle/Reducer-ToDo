@@ -1,25 +1,37 @@
 export const initialState = [
     {
-    item: 'Learn about reducers', 
-    completed: false,
-    id: 3892987589
-    }
+        item: 'Learn about reducers',
+        completed: false,
+        id: 3892987589
+    },
+    {
+        item: 'Learn about redux',
+        completed: false,
+        id: 3892987
+    },
 ]
 
 export const reducer = (state, action) => {
     console.log('reducer', state, action)
-    switch(action.type) {
+    switch (action.type) {
         case 'ADD_ITEM':
             const newItem = {
                 item: action.payload,
                 completed: false,
                 id: Date.now(),
             }
-            return {
+            return [
                 ...state,
                 newItem
-            }
-    default:
-        return state;
+            ]
+        case 'TOGGLE_COMPLETE':
+            return state.map(item => {
+                if (item.id === action.payload) {
+                    item.completed = !item.completed
+                }
+                return item;
+            })
+        default:
+            return state;
     }
 }

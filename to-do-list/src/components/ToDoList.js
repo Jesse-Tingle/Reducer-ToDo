@@ -1,18 +1,16 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 
-// Reducer
-import { reducer, initialState } from '../reducers/Reducer';
+export default function ToDoList(props) {
 
-
-export default function ToDoList() {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    console.log('todo list state', state)
+    const toggleTodos = (e, id) => {
+        e.preventDefault();
+        props.dispatch({ type: 'TOGGLE_COMPLETE', payload: id  })
+    }
 
     return (
         <div>
-            {state.item}
-            {state.map(item => {
-                return <p>{item.item}</p>
+            {props.state.map(item => {
+                return <p className={item.completed ? "completed": ''} key={item.id} onClick={(e) => toggleTodos(e ,item.id)} >{item.item}</p>
             })}
             
         </div>

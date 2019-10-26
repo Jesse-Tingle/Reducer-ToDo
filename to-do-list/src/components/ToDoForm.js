@@ -1,15 +1,14 @@
-import React, { useState, useReducer } from 'react'
+import React, { useState } from 'react'
 
-// Reducer 
-import { initialState, reducer } from '../reducers/Reducer';
 
-export default function ToDoForm() {
-    const [newToDo, setToDo] = useState()
-    const [state, dispatch] = useReducer(reducer, initialState);
+
+export default function ToDoForm(props) {
+    const [newToDo, setToDo] = useState('')
+    
 
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch({ type: 'ADD_ITEM', payload: newToDo })
+        props.dispatch({ type: 'ADD_ITEM', payload: newToDo })
     }
 
     const handleChange = e => {
@@ -19,10 +18,8 @@ export default function ToDoForm() {
 
     return (
         <form onSubmit={handleSubmit} >
-            <input type='text' value={newToDo}  onChange={handleChange} />
-            {/* <button onClick={(e) => dispatch({type: 'ADD_ITEM', payload: e.target.value }) } >Add</button> */}
+            <input value={newToDo}  onChange={handleChange} />
             <button type="submit" >Add Item</button>
-            {console.log("Form state",state)}
         </form>
     )
 }
