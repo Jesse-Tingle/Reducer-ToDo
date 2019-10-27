@@ -1,16 +1,16 @@
 import React from 'react'
 
 export default function ToDoList(props) {
-
-    const toggleTodos = (e, id) => {
-        e.preventDefault();
-        props.dispatch({ type: 'TOGGLE_COMPLETE', payload: id  })
+console.log('todo list props',props.state.tasks)
+    const toggleTodos = (item) => {
+        // e.preventDefault();
+        props.dispatch({ type: 'TOGGLE_COMPLETE', payload: item  })
     }
 
     return (
         <div>
-            {props.state.map(item => {
-                return <p className={item.completed ? "completed": ''} key={item.id} onClick={(e) => toggleTodos(e ,item.id)} >{item.item}</p>
+            {props.state.tasks.map(item => {
+                return <p className={item.completed ? "completed": ''} key={item.id} onClick={() => toggleTodos(item)} >{item.item}</p>
             })}
             
         </div>
